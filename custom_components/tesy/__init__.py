@@ -1,4 +1,5 @@
 """The Tesy integration."""
+
 from __future__ import annotations
 
 import logging
@@ -17,7 +18,6 @@ PLATFORMS: list[Platform] = [
     Platform.WATER_HEATER,
     Platform.SENSOR,
     Platform.SWITCH,
-
 ]
 
 _LOGGER = logging.getLogger(__name__)

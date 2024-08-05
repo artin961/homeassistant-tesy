@@ -21,7 +21,7 @@ jobs:
         run: echo "COMPONENT_VERSION=$(jq -r .version custom_components/*/manifest.json)" >> $GITHUB_ENV
 
       - name: "🏷️ Check if tag exists already"
-        uses: mukunku/tag-exists-action@v1.5.0
+        uses: mukunku/tag-exists-action@v1.6.0
         id: "check_tag"
         with:
           tag: "v${{ env.COMPONENT_VERSION }}"
@@ -53,7 +53,7 @@ jobs:
 
       - name: "🗒️ Generate release changelog"
         id: changelog
-        uses: heinrichreimer/github-changelog-generator-action@v2.4
+        uses: heinrichreimer/github-changelog-generator-action@v2.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sinceTag: ${{ steps.last_release.outputs.tag_name }}
@@ -61,7 +61,7 @@ jobs:
           stripGeneratorNotice: true
 
       - name: 👍 Create Stable release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           prerelease: false
           body: "${{ steps.changelog.outputs.changelog }}"
@@ -70,7 +70,7 @@ jobs:
         if: contains(env.COMPONENT_VERSION, 'beta') == false
 
       - name: 🤞 Create Beta release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           prerelease: true
           body: "${{ steps.changelog.outputs.changelog }}"
